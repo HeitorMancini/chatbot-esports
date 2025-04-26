@@ -111,4 +111,16 @@ document.addEventListener('DOMContentLoaded', function() {
             sendMessage();
         }
     });
+
+    function ajustarJanelaComTeclado() {
+        const chatContainer = document.querySelector('.chat-container');
+        window.addEventListener('resize', function () {
+            if (window.innerHeight < 500) { 
+                chatContainer.style.bottom = '50%'; 
+            } else {
+                chatContainer.style.bottom = '0';
+            }
+        });
+    }
+    ajustarJanelaComTeclado();
 });
