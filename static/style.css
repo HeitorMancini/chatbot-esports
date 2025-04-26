@@ -71,6 +71,8 @@ header {
 .logo img {
     height: 35px;
     filter: invert(1);
+    transform: scale(1);
+    image-rendering: auto;
 }
 
 .logo h1 {
@@ -274,6 +276,10 @@ footer {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    html {
+        height: 100hv;
+    }
+    
     .container {
         padding: 5px;
         height: 100vh;
