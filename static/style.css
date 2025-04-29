@@ -276,9 +276,6 @@ footer {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    html {
-        height: 100hv;
-    }
     
     .container {
         padding: 5px;
@@ -302,10 +299,13 @@ footer {
         font-size: 1.8rem;
     }
     
-    
+    .message-content {
+        max-width: 100%;
+    }
 
     #chat-messages {
         width: 100% !important;
+        height: auto;
     }
 
     .chat-input {
