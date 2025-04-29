@@ -302,9 +302,7 @@ footer {
         font-size: 1.8rem;
     }
     
-    .message-content {
-        max-width: 100%;
-    }
+    
 
     #chat-messages {
         width: 100% !important;
