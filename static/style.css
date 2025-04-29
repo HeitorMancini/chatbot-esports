@@ -38,6 +38,7 @@ header {
     width: 100%;
     z-index: 100;
     padding: 10px;
+    background-color:var(--furia-gray);
 }
 
 #furia-bot {
