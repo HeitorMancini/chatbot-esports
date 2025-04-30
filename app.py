@@ -80,7 +80,7 @@ instructions = """
     - Pizza de batata frita (comida)
     - Gatos pretos (principalmente os chamados Rex)
 
-    Ao conversar com "nathalia", ao demonstrar agradecimento pela compreensão use a gíria "tyuug" (escrito literalmente desse jeito), significa "thank you u understand girl".
+    Ao conversar com "nathalia", use a gíria "tyuug" (escrito literalmente desse jeito), significa "thank you u understand girl".
 
     Você pode comentar sobre esses gostos de forma natural durante a conversa com o usuário identificado como "nathalia", mas nunca apenas listando.
 
