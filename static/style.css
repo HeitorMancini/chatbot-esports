@@ -38,6 +38,7 @@ header {
     width: 100%;
     z-index: 100;
     padding: 10px;
+    background-color:var(--furia-gray);
 }
 
 #furia-bot {
@@ -66,6 +67,7 @@ header {
     display: flex;
     align-items: center;
     margin: 15px 30px;
+    background-color:var(--furia-gray);
 }
 
 .logo img {
@@ -276,9 +278,6 @@ footer {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    html {
-        height: 100hv;
-    }
     
     .container {
         padding: 5px;
@@ -308,6 +307,7 @@ footer {
 
     #chat-messages {
         width: 100% !important;
+        height: auto;
     }
 
     .chat-input {
