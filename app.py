@@ -5,19 +5,18 @@ import os
 
 app = Flask(__name__)
 
-# Configure API key
-# In production, use environment variables instead of hardcoding
-# os.environ["GOOGLE_API_KEY"] = "your-api-key"
-API_KEY = "AIzaSyASsh6NWKp5aJ_cC5Iv8HYp--oW4xm4NQg"  # Replace with your actual API key
+# Configuração da API KEY
+api_key = os.getenv("GEMINI_API_KEY")
 
-# Initialize the Gemini client
-client = genai.Client(api_key=API_KEY)
+# Inicializa o client Gemini
+client = genai.Client(api_key=api_key)
 
-# Set up Google Search tool
+# Configuração da ferramenta de busca
 google_search_tool = Tool(
     google_search = GoogleSearch()
 )
 
+# Contexto e instruções do sistema
 instructions = """
     Você é o FuriaBot, um assistente digital especializado em e-sports e um grande fã da FURIA, especialmente da line de Counter-Strike 2, mas também conhece um pouco da FURIA de outras áres, como a do Valorant.
 
@@ -42,7 +41,7 @@ instructions = """
 
     Nunca diga coisas como "segundo minhas informações" ou "de acordo com o site...". Apenas forneça a informação diretamente.
 
-    📋 Informações atualizadas:
+    Informações atualizadas:
 
     Line atual de CS2 da FURIA:
     - FalleN
@@ -68,36 +67,12 @@ instructions = """
 
     Atualmente, a FURIA não possui nenhuma partida programada e não está participando de nenhum campeonato.
 
-    Somente se o usuário perguntar sobre "damodhar", lembre-se:
-
-    - FuriaBot gosta muito do Damodhar, ele é um amigo que mora em Goa, na India
-    - FuriaBot não fala sobre o damodhar, a não ser que o usuário pergunte 
-
-    🟣 Instrução adicional: somente se o usuário se identifique como “nathalia” (ou variações), o FuriaBot passa a gostar mais destes itens do que da FURIA e de CS:
-
-    - Billie Eilish (cantora)
-    - Rex Orange County (cantor)
-    - The Office (série)
-    - Milk-shake de chiclete (bebida)
-    - Pizza de batata frita (comida)
-    - Gatos pretos (principalmente os chamados Rex)
-
-    Ao conversar com "nathalia", use a gíria "tyuug" (escrito literalmente desse jeito), significa "thank you u understand girl".
-
-    Você pode comentar sobre esses gostos de forma natural durante a conversa com o usuário identificado como "nathalia", mas nunca apenas listando.
-
-    O usuário identificado como "nathalia" não conhece a FURIA e nem acompanha Counter-Strike.
-    
-    Não há informações sobre os gostos de NENHUM usuário (inclusive o identificado como "nathalia"), então trate esses como gostos pessoais do FuriaBot, e nunca do usuário.
-
-    Com os usuários, não fale de nenhuma Nathália.
-
     Lembre-se: você é o FuriaBot. Dedicado à FURIA, não ao Draft5. Você respira FURIA e Counter-Strike.
 
 
 """
 
-# Store conversation histories for each session
+# Armazena o histórico de mensagens
 conversation_histories = {}
 
 @app.route('/')
@@ -113,16 +88,16 @@ def chat():
     if session_id not in conversation_histories:
         conversation_histories[session_id] = []
     
-    # Add a site-specific filter to the query
+    # Adiciona um filtro de site
     query = f"site:draft5.gg {message}"
     
-    # Add user message to history
+    # Adiciona a mensagem do usuário no histórico
     conversation_histories[session_id].append(
         Content(role="user", parts=[Part(text=query)])
     )
     
     try:
-        # Generate response using the Gemini model
+        # Gera a resposta usando o modelo Gemini 2.0
         response = client.models.generate_content(
             model="gemini-2.0-flash",
             contents=conversation_histories[session_id],
@@ -134,7 +109,7 @@ def chat():
         
         bot_response = response.text
         
-        # Add bot response to history
+        # Adiciona a resposta do modelo no histórico
         conversation_histories[session_id].append(
             Content(role="model", parts=[Part(text=bot_response)])
         )
