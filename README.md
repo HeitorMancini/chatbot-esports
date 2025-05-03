@@ -2,7 +2,7 @@
 
 ## 1. Descrição
 
-O FuriaBot é um chatbot desenvolvido para interagir com fãs do time de CS:GO da FURIA, respondendo perguntas sobre jogadores, partidas, estatísticas e curiosidades. Ele foi construído com Python, Flask e a API do Gemini, e pode ser acessado via uma interface web simples.
+O FuriaBot é um chatbot desenvolvido para interagir com fãs da FURIA, respondendo perguntas sobre jogadores, partidas, estatísticas e curiosidades. Ele foi construído com Python, Flask e a API do Gemini, e pode ser acessado via uma interface web simples.
 
 ### 1.1 Funcionalidades
 
