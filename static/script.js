@@ -3,10 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const userInput = document.getElementById('user-input');
     const sendButton = document.getElementById('send-button');
     
-    // Generate a unique session ID for this chat session
+    // Gera um ID para a sessão atual
     const sessionId = 'session_' + Date.now();
     
-    // Function to add a message to the chat
+    // Funcão para adicionar mensagem ao chat
     function addMessage(message, isUser) {
         const messageDiv = document.createElement('div');
         messageDiv.className = isUser ? 'message user-message' : 'message bot-message';
@@ -17,8 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const messageContent = document.createElement('div');
         messageContent.className = 'message-content';
         
-        // Instead of using textContent, use innerHTML with line breaks converted to <br> tags
-        // This preserves the line breaks from the API response
         messageContent.innerHTML = message.replace(/\n/g, '<br>');
         
         messageDiv.appendChild(avatar);
@@ -26,11 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         chatMessages.appendChild(messageDiv);
         
-        // Scroll to the bottom of the chat
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
     
-    // Function to handle sending a message
+    // Função para o envio da mensagem
     function sendMessage() {
         const message = userInput.value.trim();
         
@@ -38,13 +35,13 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Add the user's message to the chat
+        // Adiciona a mensagem do usuário no chat
         addMessage(message, true);
         
-        // Clear the input field
+        // Limpa o campo de texto
         userInput.value = '';
         
-        // Show loading indicator
+        // indicador de loading do modelo
         const loadingDiv = document.createElement('div');
         loadingDiv.className = 'message bot-message';
         loadingDiv.id = 'loading-message';
@@ -62,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
         chatMessages.appendChild(loadingDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
         
-        // Send the message to the server
+        // Envia a mensagem ao servidor
         fetch('/chat', {
             method: 'POST',
             headers: {
@@ -75,13 +72,13 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            // Remove the loading message
+            // Remove o indicador de loading
             const loadingMessage = document.getElementById('loading-message');
             if (loadingMessage) {
                 chatMessages.removeChild(loadingMessage);
             }
             
-            // Add the bot's response to the chat
+            // Adiciona a resposta do modelo no chat
             if (data.response) {
                 addMessage(data.response, false);
             } else if (data.error) {
@@ -90,22 +87,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(error => {
-            // Remove the loading message
             const loadingMessage = document.getElementById('loading-message');
             if (loadingMessage) {
                 chatMessages.removeChild(loadingMessage);
             }
             
-            // Add an error message to the chat
-            addMessage('Desculpe, tive um problema de conexão. Verifique sua internet e tente novamente.', false);
+            addMessage('Desculpe, tive um problema de conexão.', false);
             console.error('Error:', error);
         });
     }
     
-    // Send message when the send button is clicked
     sendButton.addEventListener('click', sendMessage);
     
-    // Send message when Enter key is pressed
     userInput.addEventListener('keypress', function(event) {
         if (event.key === 'Enter') {
             sendMessage();
